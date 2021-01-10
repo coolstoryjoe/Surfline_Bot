@@ -9,45 +9,46 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# sheet_convert = {
-#     'BS':['BALANCE','Balance Sheet','SHEETS','Fina'],
-#     'IS':['Earn','Inco','Oper','OPER','INCOME','COMP','Comp'],
-#     'CF':['Cash','CASH'],
-#     'GI':['Entity','Cover','Registrant','REGISTRANT','entity','registrant','Document','ENTITY'],
-#     }   
+sheet_convert = {
+    'BS':['BALANCE','Balance Sheet','SHEETS','Fina'],
+    'IS':['Earn','Inco','Oper','OPER','INCOME','COMP','Comp'],
+    'CF':['Cash','CASH'],
+    'GI':['Entity','Cover','Registrant','REGISTRANT','entity','registrant','Document','ENTITY'],
+    }   
 
-# IS_line_item_convert = {
-#     'Sales':['Net sales', 'Net Sales', 'Total revenues','Revenues', 'REVENUE', 'Net revenues', 
-#     'Revenue', 'Total net sales', 'Total revenues', 'Net Revenue', 'Revenue, net','Net revenues before provision for doubtful accounts', 
-#     'Revenues, Net', 'Revenues:', 'Net Revenues', 'REVENUES', 'Revenue:', 'REVENUE:',  'Sales', 
-#     'Net revenues:', 'REVENUES:', 'Revenues, net', 'NET SALES',   'Net sales and revenue', 'Net Revenue:', 
-#     'Sales and service revenues',   'REVENUES AND OTHER INCOME', 'Revenue from operations', 'Net revenue','Total operating revenues']
-#     }
+IS_line_item_convert = {
+    'Sales':['Net sales', 'Net Sales', 'Total revenues','Revenues', 'REVENUE', 'Net revenues', 
+    'Revenue', 'Total net sales', 'Total revenues', 'Net Revenue', 'Revenue, net','Net revenues before provision for doubtful accounts', 
+    'Revenues, Net', 'Revenues:', 'Net Revenues', 'REVENUES', 'Revenue:', 'REVENUE:',  'Sales', 
+    'Net revenues:', 'REVENUES:', 'Revenues, net', 'NET SALES',   'Net sales and revenue', 'Net Revenue:', 
+    'Sales and service revenues',   'REVENUES AND OTHER INCOME', 'Revenue from operations', 'Net revenue','Total operating revenues']
+    }
 
-# line_item_convert = {
-#     'NR':['sales','Sales','Revenues','REVENUE', 
-#              'revenues','Revenue','Revenues','Total net sales',
-#              'Total revenue','Total revenues','Operating revenues',
-#              'Revenues, Net','Revenues:', 'Revenue', 'Net sales', 'OPERATING REVENUE', 'Net Revenues'],
+line_item_convert = {
+    'NR':['sales','Sales','Revenues','REVENUE', 
+             'revenues','Revenue','Revenues','Total net sales',
+             'Total revenue','Total revenues','Operating revenues',
+             'Revenues, Net','Revenues:', 'Revenue', 'Net sales', 'OPERATING REVENUE', 'Net Revenues'],
     
-#     'COGS':['Cost of sales','Cost of Goods and Services Sold',
-#                           'Cost of products sold','Cost of Goods and Services Sold'],
+    'COGS':['Cost of sales','Cost of Goods and Services Sold',
+                          'Cost of products sold','Cost of Goods and Services Sold'],
     
-#     'SG&A':['administrative','Selling','general','selling', 'General', 'Adminstrative','GENERAL'],
+    'SG&A':['administrative','Selling','general','selling', 'General', 'Adminstrative','GENERAL'],
     
-#     'NI':['Net Income','Net income','Net Earnings',
-#                  'Net earnings','income','NET INCOME',
-#                  'NET EARNINGS','earnings'],
+    'NI':['Net Income','Net income','Net Earnings',
+                 'Net earnings','income','NET INCOME',
+                 'NET EARNINGS','earnings'],
 
-#     'D&A':['depreciation','amortization','Depreciation','Amortization'],
-#      }
-# IS_Conversion = {
-#     'NR': ['Sales', 'Total operating revenues', 'Total operating revenues', 'Total operating revenues', 
-#     'Total operating revenues', 'Total operating revenues', 'Total operating revenues', 'Total operating revenues'], 
-#     'COGS': [], 
-#     'SG&A': ['Selling expenses', 'Selling expenses'], 
-#     'NI': [ 'Net income', 'Net income'], 
-#     'D&A': ['Depreciation and amortization', 'Depreciation and amortization']}
+    'D&A':['depreciation','amortization','Depreciation','Amortization'],
+     }
+
+IS_Conversion = {
+    'NR': ['Sales', 'Total operating revenues', 'Total operating revenues', 'Total operating revenues', 
+    'Total operating revenues', 'Total operating revenues', 'Total operating revenues', 'Total operating revenues'], 
+    'COGS': [], 
+    'SG&A': ['Selling expenses', 'Selling expenses'], 
+    'NI': [ 'Net income', 'Net income'], 
+    'D&A': ['Depreciation and amortization', 'Depreciation and amortization']}
 
 
 page_url1 = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="
@@ -60,7 +61,6 @@ def parse(url):
     url_soup = soup(uClient.read(), "html.parser")
     uClient.close()
     return(url_soup)
-
 
 def pull_tickers(a,b):
     wiki_soup = parse(wiki_url)
@@ -84,7 +84,7 @@ def pull_tickers(a,b):
 
 def pull_NYSE_quotes(url):
     #url = 'https://www.nyse.com/quote/XNYS:ABT'
-    chrome_driver_path = '/Users/josepholeynik/Python_Practice/Selenium_Demo/chromedriver'
+    chrome_driver_path = '/Users/XXXXX/Python_Practice/Selenium_Demo/chromedriver'
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     webdriverC = webdriver.Chrome(
@@ -96,7 +96,8 @@ def pull_NYSE_quotes(url):
         wait = WebDriverWait(driver, 10)
         driver.get(url)   
         wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'d-dquote-x3')))   
-        #results = driver.find_element_by_class_name('d-dquote-x3').text
+        #
+        results = driver.find_element_by_class_name('d-dquote-x3').text
         quotesoup = soup(driver.page_source, features="lxml")
         driver.close()
     
@@ -107,7 +108,7 @@ def pull_NYSE_quotes(url):
 
 def pull_NASDAQ_quotes(url):
     #url = 'https://www.nyse.com/quote/XNYS:ABT'
-    chrome_driver_path = '/Users/josepholeynik/Python_Practice/Selenium_Demo/chromedriver'
+    chrome_driver_path = '/Users/xxxx/xxxx/Selenium_Demo/chromedriver'
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36'    
@@ -273,67 +274,67 @@ def sales_export(dict_of_dict_pandas):
     return 
 
 
-#fin_doc = scrape_docs(pull_tickers(10,30))
-#fin_doc = changing_line_items(IS_line_item_convert,delete_blanks(remove_nonpulled_docs(fin_doc)))
+fin_doc = scrape_docs(pull_tickers(10,30))
+fin_doc = changing_line_items(IS_line_item_convert,delete_blanks(remove_nonpulled_docs(fin_doc)))
 
-#items_list = finding_IS_line_items(line_item_convert, fin_doc)
+items_list = finding_IS_line_items(line_item_convert, fin_doc)
 
-#print(items_list)
+print(items_list)
 
-# for doc in docs.values():
-#     possible_kwargs.append(finding_IS_line_items(find_line_items,doc))
-#     flat_list = list(dict.fromkeys([item for sublist in possible_kwargs for item in sublist]))
-# Sales.append(flat_list)
+for doc in docs.values():
+    possible_kwargs.append(finding_IS_line_items(find_line_items,doc))
+    flat_list = list(dict.fromkeys([item for sublist in possible_kwargs for item in sublist]))
+Sales.append(flat_list)
 
-# new_list = []
-# for item in Sales:
-#     if type(item) == str:
-#         new_list.append(item)
-#     else:
-#         for ite in item:
-#             new_list.append(ite)
-# flat_sales = list(dict.fromkeys(new_list))
+new_list = []
+for item in Sales:
+    if type(item) == str:
+        new_list.append(item)
+    else:
+        for ite in item:
+            new_list.append(ite)
+flat_sales = list(dict.fromkeys(new_list))
 
-# #change line items to based on new conversion method
-# for key, doc in docs.items():
-#     doc2 = changing_line_items(IS_line_item_convert,doc)
-#     docs[key] = doc2 
+#change line items to based on new conversion method
+for key, doc in docs.items():
+    doc2 = changing_line_items(IS_line_item_convert,doc)
+    docs[key] = doc2 
 
-# #create dataframe of CIK as column and Sales as first row 
+#create dataframe of CIK as column and Sales as first row 
 
-# old_testemant = {}
-# for key, doc in docs.items():
-#     for DOC in doc.keys():
-#         if DOC == 'IS':
-#             fin = doc[DOC]
-#             try:
-#                 Sales = (fin.at['Sales',doc3.columns[0]])
-#                 if type(Sales) == float or type(Sales) == int:
-#                     if math.isnan(Sales):
-#                         pass
-#                     else:
-#                         old_testemant[key] = Sales
-#             except:
-#                 pass
+old_testemant = {}
+for key, doc in docs.items():
+    for DOC in doc.keys():
+        if DOC == 'IS':
+            fin = doc[DOC]
+            try:
+                Sales = (fin.at['Sales',doc3.columns[0]])
+                if type(Sales) == float or type(Sales) == int:
+                    if math.isnan(Sales):
+                        pass
+                    else:
+                        old_testemant[key] = Sales
+            except:
+                pass
             
-# for documents in new_testament.values():
-#     possible_kwargs = finding_IS_line_items(find_line_items,doc)
+for documents in new_testament.values():
+    possible_kwargs = finding_IS_line_items(find_line_items,doc)
 
-# def save_bible(testemant_dict):
-#     bible = pd.DataFrame(testemant_dict,index=['Sales'])
-#     engine = create_engine('sqlite:////Users/josepholeynik/Python_Practice/torah.db', echo=False)
-#     bible.to_sql('users', con=engine)
-#     return
+def save_bible(testemant_dict):
+    bible = pd.DataFrame(testemant_dict,index=['Sales'])
+    engine = create_engine('sqlite:////Users/xxxx/xxx/torah.db', echo=False)
+    bible.to_sql('users', con=engine)
+    return
 
-# def edit_bible(testemant_dict):
-#     #bible = pd.DataFrame(testemant_dict,index=['Sales'])
-#     #engine = create_engine('sqlite:////Users/josepholeynik/Python_Practice/torah.db', echo=False)
-#     #bible.to_sql('users', con=engine)
-#     return
+def edit_bible(testemant_dict):
+    #bible = pd.DataFrame(testemant_dict,index=['Sales'])
+    #engine = create_engine('sqlite:////Users/xxx/xxxx/torah.db', echo=False)
+    #bible.to_sql('users', con=engine)
+    return
     
-# def open_bible():    
-#     king_james_version = pd.read_sql_table('users',engine,index_col='index')
-#     return king_james_version
+def open_bible():    
+    king_james_version = pd.read_sql_table('users',engine,index_col='index')
+    return king_james_version
 
 
 

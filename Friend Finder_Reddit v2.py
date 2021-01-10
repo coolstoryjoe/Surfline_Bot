@@ -1,11 +1,11 @@
 import praw
 
 reddit = praw.Reddit(
-	    client_id="TrnQ-yW8RK-RwQ",
-	    client_secret="Y7czDtO3_c-6JrvmuztJkDAbSPWpVw",
-	    user_agent="BOYZenberry1 (by u/BOYZenberry1)",
-	    username="BOYZenberry1",
-	    password="JFK was assinantied")
+	    client_id="xx",
+	    client_secret="xxx",
+	    user_agent="x (by u/x)",
+	    username="x",
+	    password="xxx")
 
 sub_id3 = 'jrtgyl'
 
